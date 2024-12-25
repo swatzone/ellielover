@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>i love ellie</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="rain"></div>
+    <div class="snow"></div>
+    <div class="floating-hearts">
+        <i class="fas fa-heart"></i>
+        <i class="fas fa-heart"></i>
+        <i class="fas fa-heart"></i>
+        <i class="fas fa-heart"></i>
+        <i class="fas fa-heart"></i>
+        <i class="fas fa-heart"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-moon"></i>
+    </div>
+    <div id="intro-screen">
+        <span class="intro-text">click to enter ;)</span>
+    </div>
+
+    <div class="audio-controls">
+        <div class="volume-container">
+            <button id="volume-btn" class="volume-btn">
+                <i class="fas fa-volume-up"></i>
+            </button>
+            <input type="range" id="volume-slider" class="volume-slider" min="0" max="100" value="50">
+        </div>
+    </div>
+
+    <audio id="background-music" loop>
+        <source src="audio.mp3" type="audio/mp3">
+    </audio>
+
+    <h1 class="title">happily married couple <i class="fas fa-heart title-heart"></i></h1>
+    <p class="anniversary">together since 12/23/2024</p>
+    <p class="sweet-message">forever & always, my everything <i class="fas fa-heart"></i></p>
+    <div class="cute-messages">
+        <span><i class="fas fa-star"></i> you're my soulmate <i class="fas fa-star"></i></span>
+        <span><i class="fas fa-heart"></i> i love you to the moon and back <i class="fas fa-moon"></i></span>
+        <span><i class="fas fa-heart"></i> my whole world <i class="fas fa-heart"></i></span>
+    </div>
+    
+    <div class="container">
+        <div class="profile-card">
+            <img src="exxpfp2.png" alt="exx" class="profile-pic">
+            <h2 class="profile-name">exx</h2>
+            <p class="status">
+                <i class="fas fa-heart"></i> married to ellie
+            </p>
+            <p class="contact-email">
+                <i class="fas fa-envelope"></i> cocaina@fogmail.cc
+            </p>
+            <div class="social-links">
+                <button class="social-btn roblox-btn" onclick="window.open('https://www.roblox.com/users/6063702808/profile', '_blank')">
+                    <i class="fas fa-gamepad"></i> Roblox
+                </button>
+                <button class="social-btn discord-btn" onclick="copyDiscord('selfascend')">
+                    <i class="fab fa-discord"></i> Discord
+                </button>
+            </div>
+        </div>
+
+        <div class="profile-card">
+            <img src="elliepfp2.png" alt="ellie" class="profile-pic">
+            <h2 class="profile-name">ellie</h2>
+            <p class="status">married to exx <i class="fas fa-heart"></i></p>
+            <div class="social-links">
+                <button class="social-btn roblox-btn" onclick="window.open('https://www.roblox.com/users/979863477/profile', '_blank')">
+                    <i class="fas fa-gamepad"></i> Roblox
+                </button>
+                <button class="social-btn discord-btn" onclick="copyDiscord('worstmemory')">
+                    <i class="fab fa-discord"></i> Discord
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <button class="memories-btn" onclick="showMemories()">
+        <i class="fas fa-heart"></i> View Memories
+    </button>
+
+    <div class="slideshow-container" id="slideshow">
+        <div id="slides-container">
+            <div class="slides fade">
+                <img src="image1.png" alt="Memory 1" onerror="this.style.display='none'">
+            </div>
+            <div class="slides fade">
+                <img src="image2.png" alt="Memory 2" onerror="this.style.display='none'">
+            </div>
+            <div class="slides fade">
+                <img src="image3.png" alt="Memory 3" onerror="this.style.display='none'">
+            </div>
+            <div class="slides fade">
+                <img src="image4.png" alt="Memory 4" onerror="this.style.display='none'">
+            </div>
+            <div class="slides fade">
+                <img src="image5.png" alt="Memory 5" onerror="this.style.display='none'">
+            </div>
+        </div>
+        <button class="prev" onclick="changeSlide(-1)">❮</button>
+        <button class="next" onclick="changeSlide(1)">❯</button>
+        <button class="close-btn" onclick="toggleSlideshow()">×</button>
+        <div class="memory-counter" id="memory-counter"></div>
+    </div>
+
+    <script>
+        const introScreen = document.getElementById('intro-screen');
+        const audio = document.getElementById('background-music');
+        const volumeBtn = document.getElementById('volume-btn');
+        const volumeSlider = document.getElementById('volume-slider');
+        const volumeIcon = volumeBtn.querySelector('i');
+
+        introScreen.addEventListener('click', () => {
+            introScreen.style.opacity = '0';
+            setTimeout(() => {
+                introScreen.style.display = 'none';
+            }, 500);
+            audio.play();
+        });
+
+        volumeBtn.addEventListener('click', () => {
+            if (audio.muted) {
+                audio.muted = false;
+                volumeIcon.className = 'fas fa-volume-up';
+            } else {
+                audio.muted = true;
+                volumeIcon.className = 'fas fa-volume-mute';
+            }
+        });
+
+        volumeSlider.addEventListener('input', (e) => {
+            const value = e.target.value;
+            audio.volume = value / 100;
+            if (value == 0) {
+                volumeIcon.className = 'fas fa-volume-mute';
+            } else if (value < 50) {
+                volumeIcon.className = 'fas fa-volume-down';
+            } else {
+                volumeIcon.className = 'fas fa-volume-up';
+            }
+        });
+
+        function copyDiscord(username) {
+            navigator.clipboard.writeText(username);
+            window.open('discord://discord.com/users/@me');
+            
+            setTimeout(() => {
+                window.open('https://discord.com/channels/@me', '_blank');
+            }, 1500);
+        }
+
+        let slideIndex = 1;
+        let slideshowVisible = false;
+
+        function showMemories() {
+            const slideshow = document.getElementById("slideshow");
+            slideshowVisible = !slideshowVisible;
+            slideshow.style.display = "block";
+            showSlides(slideIndex);
+        }
+
+        function toggleSlideshow() {
+            const slideshow = document.getElementById("slideshow");
+            slideshowVisible = !slideshowVisible;
+            slideshow.style.display = slideshowVisible ? "block" : "none";
+        }
+
+        function changeSlide(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function showSlides(n) {
+            const slides = document.getElementsByClassName("slides");
+            const validSlides = Array.from(slides).filter(slide => 
+                slide.querySelector('img').style.display !== 'none'
+            );
+
+            if (validSlides.length === 0) return;
+
+            if (n > validSlides.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = validSlides.length}
+
+            for (let slide of slides) {
+                slide.style.display = "none";
+            }
+
+            let currentValidIndex = 0;
+            for (let i = 0; i < slides.length; i++) {
+                const img = slides[i].querySelector('img');
+                if (img && img.style.display !== 'none') {
+                    currentValidIndex++;
+                    if (currentValidIndex === slideIndex) {
+                        slides[i].style.display = "flex";
+                        break;
+                    }
+                }
+            }
+
+            const counter = document.getElementById('memory-counter');
+            counter.textContent = `Memory ${slideIndex} of ${validSlides.length}`;
+        }
+    </script>
+</body>
+</html>
